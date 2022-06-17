@@ -50,11 +50,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-
-        $res = new Response(__METHOD__, $request->all());
-        $res->debug($exception->getMessage());
-        $response = $res->get();
-        return response()->json($response['content'], $response['status']);
+		print_r($exception->getMessage());
+        // $res = new Response(__METHOD__, $request->all());
+        // $res->debug($exception->getMessage());
+        // $response = $res->get();
+        // return response()->json($response['content'], $response['status']);
 
     }
 }

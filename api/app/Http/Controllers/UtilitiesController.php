@@ -6,8 +6,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\DB;
-use App\Helpers\Response;
-use App\Helpers\Util;
+use App\Libraries\Response;
+use App\Libraries\Util;
 use Illuminate\Support\Facades\Storage;
 
 class UtilitiesController extends Controller

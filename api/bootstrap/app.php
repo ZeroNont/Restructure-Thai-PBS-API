@@ -78,7 +78,6 @@ $app->configure('mail');
 
 $app->middleware([
     // App\Http\Middleware\KeyAppMiddleware::class,
-    App\Http\Middleware\AdditionalRequestLogMiddleware::class
 ]);
 
 $app->routeMiddleware([
