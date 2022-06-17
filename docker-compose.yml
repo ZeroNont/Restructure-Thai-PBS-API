@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+
+  thai-pbs-e-meeting-api-service:
+    image: php:shiping
+    restart: always
+    container_name: final_project
+    volumes:
+      - C:/Users/Nont/OneDrive/Desktop/Final_project/api:/var/www/html
+    ports:
+      - 3003:80
+    environment:
+      - TZ=Asia/Bangkok
