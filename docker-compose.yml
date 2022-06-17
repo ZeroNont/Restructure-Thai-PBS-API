@@ -3,6 +3,9 @@ services:
 
   thai-pbs-e-meeting-api-service:
     image: php:shiping
+    build:
+      context: C:/Users/Nawawit.P/Documents/GitHub/Restructure-Thai-PBS-API/api
+      dockerfile: Dockerfile
     restart: always
     container_name: final_project
     volumes:
