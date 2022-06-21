@@ -31,7 +31,7 @@ class StatisticController extends Controller
             // @0 Validating
             $this->clean(['keyword']);
             $validator = Validator::make($this->req->all(), [
-                'years' => Util::rule(true, 'date.year'),
+                'years' => Util::rule('Meeting', true, 'date.year'),
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -76,7 +76,7 @@ class StatisticController extends Controller
             // @0 Validating
             $this->clean(['keyword']);
             $validator = Validator::make($this->req->all(), [
-                'years' => Util::rule(true, 'date.year'),
+                'years' => Util::rule('Meeting', true, 'date.year'),
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -123,7 +123,7 @@ class StatisticController extends Controller
             // @0 Validating
             $this->clean(['keyword']);
             $validator = Validator::make($this->req->all(), [
-                'years' => Util::rule(true, 'date.year'),
+                'years' => Util::rule('Meeting', true, 'date.year'),
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -166,7 +166,7 @@ class StatisticController extends Controller
             // @0 Validating
             $this->clean(['keyword']);
             $validator = Validator::make($this->req->all(), [
-                'years' => Util::rule(true, 'date.year'),
+                'years' => Util::rule('Meeting', true, 'date.year'),
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());

@@ -59,8 +59,8 @@ class CalendarController extends Controller
 
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'month' => Util::rule(true, 'date.month'),
-                'year' => Util::rule(true, 'date.year')
+                'month' => Util::rule('Meeting', true, 'date.month'),
+                'year' => Util::rule('Meeting', true, 'date.year')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -112,8 +112,8 @@ class CalendarController extends Controller
 
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'month' => Util::rule(true, 'date.month'),
-                'year' => Util::rule(true, 'date.year')
+                'month' => Util::rule('Meeting', true, 'date.month'),
+                'year' => Util::rule('Meeting', true, 'date.year')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -170,19 +170,19 @@ class CalendarController extends Controller
 
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'day' => Util::rule(false, 'date.day'),
-                'month' => Util::rule(true, 'date.month'),
-                'year' => Util::rule(true, 'date.year'),
-                'keyword' => Util::rule(false, 'keyword'),
+                'day' => Util::rule('Meeting', false, 'date.day'),
+                'month' => Util::rule('Meeting', true, 'date.month'),
+                'year' => Util::rule('Meeting', true, 'date.year'),
+                'keyword' => Util::rule('Meeting', false, 'keyword'),
                 'type_code' => 'nullable|array',
-                'type_code.*' => Util::rule(false, 'meeting.type_code'),
+                'type_code.*' => Util::rule('Meeting', false, 'meeting.type_code'),
                 'join_code' => 'nullable|array',
-                'join_code.*' => Util::rule(false, 'filter.calendar.join_code'),
+                'join_code.*' => Util::rule('Meeting', false, 'filter.calendar.join_code'),
                 'status_code' => 'nullable|array',
-                'status_code.*' => Util::rule(false, 'filter.calendar.status_code'),
+                'status_code.*' => Util::rule('Meeting', false, 'filter.calendar.status_code'),
                 'is_publish' => 'nullable|array',
-                'is_publish.*' => Util::rule(false, 'filter.calendar.is_publish'),
-                'is_secreted' => Util::rule(false, 'filter.calendar.is_secreted')
+                'is_publish.*' => Util::rule('Meeting', false, 'filter.calendar.is_publish'),
+                'is_secreted' => Util::rule('Meeting', false, 'filter.calendar.is_secreted')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());

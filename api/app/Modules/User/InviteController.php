@@ -46,14 +46,14 @@ class InviteController extends Controller
             ]);
             // @0 Validating
             $schema = [
-                'full_name' => Util::rule(true, 'text.name'),
-                'email' => Util::rule(true, 'user.email'),
-                'mobile_phone' => Util::rule(false, 'user.mobile_phone'),
+                'full_name' => Util::rule('User', true, 'text.name'),
+                'email' => Util::rule('User', true, 'user.email'),
+                'mobile_phone' => Util::rule('User', false, 'user.mobile_phone'),
                 'actor_code' => 'required|in:ADMIN,SECRET,LEADER,MEMBER',
-                'rank' => Util::rule(false, 'text.name'),
-                'institution' => Util::rule(false, 'text.name'),
-                'department' => Util::rule(false, 'text.name'),
-                'branch' => Util::rule(false, 'text.name'),
+                'rank' => Util::rule('User', false, 'text.name'),
+                'institution' => Util::rule('User', false, 'text.name'),
+                'department' => Util::rule('User', false, 'text.name'),
+                'branch' => Util::rule('User', false, 'text.name'),
                 'is_permanent' => 'required|boolean'
             ];
             if ($this->req->input('is_permanent') === false) {
@@ -121,7 +121,7 @@ class InviteController extends Controller
 
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'user_id' => Util::rule(true, 'primary')
+                'user_id' => Util::rule('User', true, 'primary')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -163,14 +163,14 @@ class InviteController extends Controller
             }
             $this->clean(['full_name', 'rank', 'institution', 'department', 'branch', 'mobile_phone']);
             $validator = Validator::make($this->req->all(), [
-                'full_name' => Util::rule(true, 'text.name'),
-                'password' => Util::rule(true, 'user.password'),
-                'rank' => Util::rule(false, 'text.name'),
-                'institution' => Util::rule(false, 'text.name'),
-                'department' => Util::rule(false, 'text.name'),
-                'branch' => Util::rule(false, 'text.name'),
-                'mobile_phone' => Util::rule(false, 'user.mobile_phone'),
-                'policy_version' => Util::rule(true, 'user.policy_version')
+                'full_name' => Util::rule('User', true, 'text.name'),
+                'password' => Util::rule('User', true, 'user.password'),
+                'rank' => Util::rule('User', false, 'text.name'),
+                'institution' => Util::rule('User', false, 'text.name'),
+                'department' => Util::rule('User', false, 'text.name'),
+                'branch' => Util::rule('User', false, 'text.name'),
+                'mobile_phone' => Util::rule('User', false, 'user.mobile_phone'),
+                'policy_version' => Util::rule('User', true, 'user.policy_version')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -312,7 +312,7 @@ class InviteController extends Controller
 
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'user_id' => Util::rule(true, 'primary')
+                'user_id' => Util::rule('User', true, 'primary')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());

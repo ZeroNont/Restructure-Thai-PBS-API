@@ -38,17 +38,17 @@ class ProposalController extends Controller
 
             // @0 Validating
             $schema = [
-                'subject' => Util::rule(true, 'text.title'),
-                'level_code' => Util::rule(true, 'proposal.level_code'),
-                'type_code' => Util::rule(true, 'proposal.type_code'),
-                'text_background' => Util::rule(false, 'text.paper'),
-                'text_rule' => Util::rule(false, 'text.paper'),
-                'text_issue' => Util::rule(false, 'text.paper'),
+                'subject' => Util::rule('Meeting', true, 'text.title'),
+                'level_code' => Util::rule('Meeting', true, 'proposal.level_code'),
+                'type_code' => Util::rule('Meeting', true, 'proposal.type_code'),
+                'text_background' => Util::rule('Meeting', false, 'text.paper'),
+                'text_rule' => Util::rule('Meeting', false, 'text.paper'),
+                'text_issue' => Util::rule('Meeting', false, 'text.paper'),
                 'admin' => 'required|array',
                 'approver' => 'required|array'
             ];
             if ($this->req->input('level_code') !== 'D') {
-                $schema['prop_prefix_id'] = Util::rule(true, 'primary');
+                $schema['prop_prefix_id'] = Util::rule('Meeting', true, 'primary');
             }
             $validator = Validator::make($this->req->all(), $schema);
             if ($validator->fails()) {
@@ -181,18 +181,18 @@ class ProposalController extends Controller
 
             // @0 Validating
             $schema = [
-                'prop_id' => Util::rule(true, 'primary'),
-                'subject' => Util::rule(true, 'text.title'),
-                'level_code' => Util::rule(true, 'proposal.level_code'),
-                'type_code' => Util::rule(true, 'proposal.type_code'),
-                'text_background' => Util::rule(false, 'text.paper'),
-                'text_rule' => Util::rule(false, 'text.paper'),
-                'text_issue' => Util::rule(false, 'text.paper'),
+                'prop_id' => Util::rule('Meeting', true, 'primary'),
+                'subject' => Util::rule('Meeting', true, 'text.title'),
+                'level_code' => Util::rule('Meeting', true, 'proposal.level_code'),
+                'type_code' => Util::rule('Meeting', true, 'proposal.type_code'),
+                'text_background' => Util::rule('Meeting', false, 'text.paper'),
+                'text_rule' => Util::rule('Meeting', false, 'text.paper'),
+                'text_issue' => Util::rule('Meeting', false, 'text.paper'),
                 'admin' => 'required|array',
                 'approver' => 'required|array'
             ];
             if ($this->req->input('level_code') !== 'D') {
-                $schema['prop_prefix_id'] = Util::rule(true, 'primary');
+                $schema['prop_prefix_id'] = Util::rule('Meeting', true, 'primary');
             }
             $validator = Validator::make([...$this->req->all(), 'prop_id' => $id], $schema);
             if ($validator->fails()) {
@@ -312,17 +312,17 @@ class ProposalController extends Controller
             // @0 Validating
             $this->clean(['keyword']);
             $validator = Validator::make($this->req->all(), [
-                'keyword' => Util::rule(false, 'keyword'),
-                'page' => Util::rule(true, 'page'),
+                'keyword' => Util::rule('Meeting', false, 'keyword'),
+                'page' => Util::rule('Meeting', true, 'page'),
                 'status_code' => 'required|array',
                 'status_code.*' => 'required|in:PENDING,PASSED,REJECTED',
                 'type_code' => 'nullable|array',
-                'type_code.*' => Util::rule(true, 'proposal.type_code'),
+                'type_code.*' => Util::rule('Meeting', true, 'proposal.type_code'),
                 'level_code' => 'nullable|array',
-                'level_code.*' => Util::rule(true, 'proposal.level_code'),
+                'level_code.*' => Util::rule('Meeting', true, 'proposal.level_code'),
                 'from_date' => 'required|date|date_format:Y-m-d',
                 'to_date' => 'required|date|date_format:Y-m-d|after_or_equal:from_date',
-                'limit' => Util::rule(false, 'page_limit')
+                'limit' => Util::rule('Meeting', false, 'page_limit')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -509,9 +509,9 @@ class ProposalController extends Controller
 
             // @0 Validating
             $validator = Validator::make([...$this->req->all(), 'prop_apv_id' => $id], [
-                'prop_apv_id' => Util::rule(true, 'primary'),
+                'prop_apv_id' => Util::rule('Meeting', true, 'primary'),
                 'status_code' => 'required|in:REJECTED,PASSED',
-                'note' => Util::rule(false, 'text.note')
+                'note' => Util::rule('Meeting', false, 'text.note')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());

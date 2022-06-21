@@ -26,10 +26,10 @@ class TemplateFillController extends Controller
             $this->clean(['name']);
 
             $validator = Validator::make($this->req->all(), [
-                'template_id' => Util::rule(true, 'primary'),
-                'type_code' => Util::rule(true, 'template.type_code'),
-                'name' => Util::rule(true, 'text.title'),
-                'no' => Util::rule(true, 'number.no')
+                'template_id' => Util::rule('Meeting', true, 'primary'),
+                'type_code' => Util::rule('Meeting', true, 'template.type_code'),
+                'name' => Util::rule('Meeting', true, 'text.title'),
+                'no' => Util::rule('Meeting', true, 'number.no')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -73,9 +73,9 @@ class TemplateFillController extends Controller
             $this->clean(['name']);
 
             $validator = Validator::make([...$this->req->all(), 'fill_id' => $id], [
-                'fill_id' => Util::rule(true, 'primary'),
-                'name' => Util::rule(true, 'text.title'),
-                'no' => Util::rule(true, 'number.no')
+                'fill_id' => Util::rule('Meeting', true, 'primary'),
+                'name' => Util::rule('Meeting', true, 'text.title'),
+                'no' => Util::rule('Meeting', true, 'number.no')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -113,7 +113,7 @@ class TemplateFillController extends Controller
         try {
 
             $validator = Validator::make(['fill_id' => $id], [
-                'fill_id' => Util::rule(true, 'primary')
+                'fill_id' => Util::rule('Meeting', true, 'primary')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());

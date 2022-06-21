@@ -31,22 +31,22 @@ class AttendeeController extends Controller
 
             // @0 Validating
             $schema = [
-                'pos_id' => Util::rule(true, 'primary'),
+                'pos_id' => Util::rule('Meeting', true, 'primary'),
                 'group_code' => 'required|in:INSIDER,OUTSIDER'
             ];
             if ($this->req->input('group_code') === 'INSIDER') {
                 $schema = [
                     ...$schema,
-                    'user_id' => Util::rule(true, 'primary'),
+                    'user_id' => Util::rule('Meeting', true, 'primary'),
                     'is_access' => 'required|boolean'
                 ];
             } else {
                 $schema = [
                     ...$schema,
-                    'out_email' => Util::rule(true, 'user.email'),
-                    'out_full_name' => Util::rule(true, 'text.name'),
-                    'out_rank' => Util::rule(false, 'text.title'),
-                    'out_institution' => Util::rule(false, 'text.title')
+                    'out_email' => Util::rule('Meeting', true, 'user.email'),
+                    'out_full_name' => Util::rule('Meeting', true, 'text.name'),
+                    'out_rank' => Util::rule('Meeting', false, 'text.title'),
+                    'out_institution' => Util::rule('Meeting', false, 'text.title')
                 ];
             }
             $validator = Validator::make($this->req->all(), $schema);
@@ -165,7 +165,7 @@ class AttendeeController extends Controller
         try {
 
             $validator = Validator::make([...$this->req->all(), 'attendee_id' => $id], [
-                'attendee_id' => Util::rule(true, 'primary'),
+                'attendee_id' => Util::rule('Meeting', true, 'primary'),
                 'is_access' => 'required|boolean'
             ]);
             if ($validator->fails()) {
@@ -204,10 +204,10 @@ class AttendeeController extends Controller
 
             $this->clean(['out_full_name', 'out_rank', 'out_institution']);
             $validator = Validator::make([...$this->req->all(), 'attendee_id' => $id], [
-                'attendee_id' => Util::rule(true, 'primary'),
-                'out_full_name' => Util::rule(true, 'text.name'),
-                'out_rank' => Util::rule(false, 'text.title'),
-                'out_institution' => Util::rule(false, 'text.title')
+                'attendee_id' => Util::rule('Meeting', true, 'primary'),
+                'out_full_name' => Util::rule('Meeting', true, 'text.name'),
+                'out_rank' => Util::rule('Meeting', false, 'text.title'),
+                'out_institution' => Util::rule('Meeting', false, 'text.title')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());

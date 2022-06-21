@@ -32,7 +32,7 @@ class PermissionController extends Controller
 
             // @0 Validating
             $validator = Validator::make(['actor_code' => $actor], [
-                'actor_code' => Util::rule(true, 'user.actor_code')
+                'actor_code' => Util::rule('User', true, 'user.actor_code')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -83,9 +83,9 @@ class PermissionController extends Controller
 
             // @0 Validating
             $validator = Validator::make([...$this->req->all(), 'actor_code' => $actor], [
-                'actor_code' => Util::rule(true, 'user.actor_code'),
-                'list.*.menu_code' => Util::rule(true, 'permission.menu_code'),
-                'list.*.func_code' => Util::rule(true, 'permission.func_code'),
+                'actor_code' => Util::rule('User', true, 'user.actor_code'),
+                'list.*.menu_code' => Util::rule('User', true, 'permission.menu_code'),
+                'list.*.func_code' => Util::rule('User', true, 'permission.func_code'),
                 'list.*.is_enabled' => 'required|boolean',
             ]);
             if ($validator->fails()) {

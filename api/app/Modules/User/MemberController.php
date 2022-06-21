@@ -33,9 +33,9 @@ class MemberController extends Controller
             // @0 Validating
             $this->clean(['keyword']);
             $validator = Validator::make($this->req->all(), [
-                'keyword' => Util::rule(false, 'keyword'),
+                'keyword' => Util::rule('User', false, 'keyword'),
                 'actor_code' => 'nullable|array',
-                'actor_code.*' => Util::rule(true, 'user.actor_code')
+                'actor_code.*' => Util::rule('User', true, 'user.actor_code')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -98,7 +98,7 @@ class MemberController extends Controller
         try {
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'user_id' => Util::rule(true, 'primary')
+                'user_id' => Util::rule('User', true, 'primary')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -139,13 +139,13 @@ class MemberController extends Controller
             $this->clean(['keyword']);
             $this->cast('bool', ['is_enabled']);
             $validator = Validator::make($this->req->all(), [
-                'keyword' => Util::rule(false, 'keyword'),
+                'keyword' => Util::rule('User', false, 'keyword'),
                 'group_code' => 'required|in:PERMANENT,CONTRACT',
-                'page' => Util::rule(true, 'page'),
+                'page' => Util::rule('User', true, 'page'),
                 'is_enabled' => 'nullable|boolean',
                 'actor_code' => 'nullable|array',
-                'actor_code.*' => Util::rule(false, 'user.actor_code'),
-                'limit' => Util::rule(false, 'page_limit')
+                'actor_code.*' => Util::rule('User', false, 'user.actor_code'),
+                'limit' => Util::rule('User', false, 'page_limit')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -309,13 +309,13 @@ class MemberController extends Controller
             if ((bool) $exist[0]->is_permanent === false) {
                 $schema = [
                     ...$schema,
-                    'mobile_phone' => Util::rule(false, 'user.mobile_phone'),
+                    'mobile_phone' => Util::rule('User', false, 'user.mobile_phone'),
                     'actor_code' => 'required|in:ADMIN,SECRET,LEADER,MEMBER',
-                    'full_name' => Util::rule(true, 'text.name'),
-                    'rank' => Util::rule(false, 'text.name'),
-                    'institution' => Util::rule(false, 'text.name'),
-                    'department' => Util::rule(false, 'text.name'),
-                    'branch' => Util::rule(false, 'text.name')
+                    'full_name' => Util::rule('User', true, 'text.name'),
+                    'rank' => Util::rule('User', false, 'text.name'),
+                    'institution' => Util::rule('User', false, 'text.name'),
+                    'department' => Util::rule('User', false, 'text.name'),
+                    'branch' => Util::rule('User', false, 'text.name')
                 ];
             } else {
                 // LDAP
@@ -406,7 +406,7 @@ class MemberController extends Controller
                 throw new Exception();
             }
             $validator = Validator::make($this->req->all(), [
-                'password' => Util::rule(true, 'user.password')
+                'password' => Util::rule('User', true, 'user.password')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());

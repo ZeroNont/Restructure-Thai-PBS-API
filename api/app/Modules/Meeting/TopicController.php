@@ -32,11 +32,11 @@ class TopicController extends Controller
 
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'meeting_id' => Util::rule(true, 'primary'),
-                'topic_no' => Util::rule(true, 'meeting.topic_no'),
-                'subject' => Util::rule(true, 'text.title'),
-                'detail' => Util::rule(false, 'text.paper'),
-                'note' => Util::rule(false, 'text.note'),
+                'meeting_id' => Util::rule('Meeting', true, 'primary'),
+                'topic_no' => Util::rule('Meeting', true, 'meeting.topic_no'),
+                'subject' => Util::rule('Meeting', true, 'text.title'),
+                'detail' => Util::rule('Meeting', false, 'text.paper'),
+                'note' => Util::rule('Meeting', false, 'text.note'),
                 'has_vote' => 'required|boolean'
             ]);
             if ($validator->fails()) {
@@ -87,7 +87,7 @@ class TopicController extends Controller
 
             // @0 Validating
             $validator = Validator::make(['topic_id' => $id], [
-                'topic_id' => Util::rule(true, 'primary')
+                'topic_id' => Util::rule('Meeting', true, 'primary')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -139,11 +139,11 @@ class TopicController extends Controller
             $this->clean(['subject', 'detail', 'note']);
             $this->req->merge(['topic_no' => Util::rewriteNoVersion($this->req->input('topic_no'))]);
             $validator = Validator::make([...$this->req->all(), 'topic_id' => $id], [
-                'topic_id' => Util::rule(true, 'primary'),
-                'topic_no' => Util::rule(true, 'meeting.topic_no'),
-                'subject' => Util::rule(true, 'text.title'),
-                'detail' => Util::rule(false, 'text.paper'),
-                'note' => Util::rule(false, 'text.note'),
+                'topic_id' => Util::rule('Meeting', true, 'primary'),
+                'topic_no' => Util::rule('Meeting', true, 'meeting.topic_no'),
+                'subject' => Util::rule('Meeting', true, 'text.title'),
+                'detail' => Util::rule('Meeting', false, 'text.paper'),
+                'note' => Util::rule('Meeting', false, 'text.note'),
                 'has_vote' => 'required|boolean'
             ]);
             if ($validator->fails()) {
@@ -193,7 +193,7 @@ class TopicController extends Controller
 
             // @0 Validating
             $validator = Validator::make(['topic_id' => $id], [
-                'topic_id' => Util::rule(true, 'primary')
+                'topic_id' => Util::rule('Meeting', true, 'primary')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());

@@ -38,8 +38,8 @@ class AuthController extends Controller
 
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'username' => Util::rule(true, 'user.username'),
-                'password' => Util::rule(true, 'user.password')
+                'username' => Util::rule('User', true, 'user.username'),
+                'password' => Util::rule('User', true, 'user.password')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -179,12 +179,12 @@ class AuthController extends Controller
             // @0 Validating
             $this->clean(['full_name', 'rank', 'institution', 'department', 'branch']);
             $validator = Validator::make($this->req->all(), [
-                'mobile_phone' => Util::rule(false, 'user.mobile_phone'),
-                'full_name' => Util::rule(true, 'text.name'),
-                'rank' => Util::rule(false, 'text.name'),
-                'institution' => Util::rule(false, 'text.name'),
-                'department' => Util::rule(false, 'text.name'),
-                'branch' => Util::rule(false, 'text.name')
+                'mobile_phone' => Util::rule('User', false, 'user.mobile_phone'),
+                'full_name' => Util::rule('User', true, 'text.name'),
+                'rank' => Util::rule('User', false, 'text.name'),
+                'institution' => Util::rule('User', false, 'text.name'),
+                'department' => Util::rule('User', false, 'text.name'),
+                'branch' => Util::rule('User', false, 'text.name')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -248,7 +248,7 @@ class AuthController extends Controller
 
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'password' => Util::rule(true, 'user.password')
+                'password' => Util::rule('User', true, 'user.password')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());

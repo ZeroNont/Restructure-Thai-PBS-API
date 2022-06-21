@@ -35,20 +35,20 @@ class AgendaController extends Controller
 
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'subject' => Util::rule(true, 'text.title'),
-                'resolution_code' => Util::rule(false, 'meeting.resolution_code'),
-                'type_code' => Util::rule(true, 'meeting.type_code'),
+                'subject' => Util::rule('Meeting', true, 'text.title'),
+                'resolution_code' => Util::rule('Meeting', false, 'meeting.resolution_code'),
+                'type_code' => Util::rule('Meeting', true, 'meeting.type_code'),
                 'is_publish' => 'required|boolean',
                 'is_secreted' => 'required|boolean',
-                'started_at' => Util::rule(true, 'date.started_at'),
-                'ended_at' => Util::rule(true, 'date.ended_at'),
-                'address' => Util::rule(false, 'text.note'),
+                'started_at' => Util::rule('Meeting', true, 'date.started_at'),
+                'ended_at' => Util::rule('Meeting', true, 'date.ended_at'),
+                'address' => Util::rule('Meeting', false, 'text.note'),
                 'url' => 'nullable|url',
-                'period' => Util::rule(false, 'number.no'),
-                'annual' => Util::rule(false, 'date.year'),
-                'pin' => Util::rule(false, 'number.pin'),
-                'tag_id' => Util::rule(false, 'primary'),
-                'meeting_code' => Util::rule(false, 'meeting.meeting_code')
+                'period' => Util::rule('Meeting', false, 'number.no'),
+                'annual' => Util::rule('Meeting', false, 'date.year'),
+                'pin' => Util::rule('Meeting', false, 'number.pin'),
+                'tag_id' => Util::rule('Meeting', false, 'primary'),
+                'meeting_code' => Util::rule('Meeting', false, 'meeting.meeting_code')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -102,7 +102,7 @@ class AgendaController extends Controller
 
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'meeting_id' => Util::rule(true, 'primary')
+                'meeting_id' => Util::rule('Meeting', true, 'primary')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -191,8 +191,8 @@ class AgendaController extends Controller
 
             // @0 Validating
             $validator = Validator::make(['meeting_id' => $id, 'out_ref_code' => $reference], [
-                'meeting_id' => Util::rule(true, 'primary'),
-                'out_ref_code' => Util::rule(true, 'meeting.reference')
+                'meeting_id' => Util::rule('Meeting', true, 'primary'),
+                'out_ref_code' => Util::rule('Meeting', true, 'meeting.reference')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -642,20 +642,20 @@ class AgendaController extends Controller
 
             // @0 Validating
             $validator = Validator::make([...$this->req->all(), 'meeting_id' => $id], [
-                'meeting_id' => Util::rule(true, 'primary'),
-                'subject' => Util::rule(true, 'text.title'),
-                'resolution_code' => Util::rule(false, 'meeting.resolution_code'),
-                'type_code' => Util::rule(true, 'meeting.type_code'),
+                'meeting_id' => Util::rule('Meeting', true, 'primary'),
+                'subject' => Util::rule('Meeting', true, 'text.title'),
+                'resolution_code' => Util::rule('Meeting', false, 'meeting.resolution_code'),
+                'type_code' => Util::rule('Meeting', true, 'meeting.type_code'),
                 'is_secreted' => 'required|boolean',
-                'started_at' => Util::rule(true, 'date.started_at'),
-                'ended_at' => Util::rule(true, 'date.ended_at'),
-                'address' => Util::rule(false, 'text.note'),
+                'started_at' => Util::rule('Meeting', true, 'date.started_at'),
+                'ended_at' => Util::rule('Meeting', true, 'date.ended_at'),
+                'address' => Util::rule('Meeting', false, 'text.note'),
                 'url' => 'nullable|url',
-                'period' => Util::rule(false, 'number.no'),
-                'annual' => Util::rule(false, 'date.year'),
-                'pin' => Util::rule(false, 'number.pin'),
-                'tag_id' => Util::rule(false, 'primary'),
-                'meeting_code' => Util::rule(false, 'meeting.meeting_code')
+                'period' => Util::rule('Meeting', false, 'number.no'),
+                'annual' => Util::rule('Meeting', false, 'date.year'),
+                'pin' => Util::rule('Meeting', false, 'number.pin'),
+                'tag_id' => Util::rule('Meeting', false, 'primary'),
+                'meeting_code' => Util::rule('Meeting', false, 'meeting.meeting_code')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -771,7 +771,7 @@ class AgendaController extends Controller
 
             // @0 Validating
             $validator = Validator::make([...$this->req->all(), 'meeting_id' => $id], [
-                'meeting_id' => Util::rule(true, 'primary'),
+                'meeting_id' => Util::rule('Meeting', true, 'primary'),
                 'status_code' => 'required|in:CANCELED,PROGRESS,DONE'
             ]);
             if ($validator->fails()) {
@@ -830,7 +830,7 @@ class AgendaController extends Controller
 
             // @0 Validating
             $validator = Validator::make([...$this->req->all(), 'meeting_id' => $id], [
-                'meeting_id' => Util::rule(true, 'primary'),
+                'meeting_id' => Util::rule('Meeting', true, 'primary'),
                 'is_publish' => 'required|boolean'
             ]);
             if ($validator->fails()) {
@@ -871,15 +871,15 @@ class AgendaController extends Controller
 
             // @0 Validating
             $schema = [
-                'meeting_id' => Util::rule(true, 'primary'),
-                'mode_code' => Util::rule(true, 'meeting.email.mode_code')
+                'meeting_id' => Util::rule('Meeting', true, 'primary'),
+                'mode_code' => Util::rule('Meeting', true, 'meeting.email.mode_code')
             ];
             switch ($this->req->input('mode_code')) {
                 case 'NEW': {
                         $schema = [
                             ...$schema,
                             'attendee_id' => 'required|array',
-                            'attendee_id.*' => Util::rule(true, 'primary')
+                            'attendee_id.*' => Util::rule('Meeting', true, 'primary')
                         ];
                     }
                     break;
@@ -887,9 +887,9 @@ class AgendaController extends Controller
                         $schema = [
                             ...$schema,
                             'attendee_id' => 'required|array',
-                            'attendee_id.*' => Util::rule(true, 'primary'),
+                            'attendee_id.*' => Util::rule('Meeting', true, 'primary'),
                             'edit_code' => 'required|array',
-                            'edit_code.*' => Util::rule(false, 'meeting.email.edit_code')
+                            'edit_code.*' => Util::rule('Meeting', false, 'meeting.email.edit_code')
                         ];
                     }
                     break;
@@ -979,9 +979,9 @@ class AgendaController extends Controller
 
             // @0 Validating
             $validator = Validator::make([...$this->req->all(), 'meeting_id' => $id], [
-                'meeting_id' => Util::rule(true, 'primary'),
-                'status_code' => Util::rule(true, 'meeting.join_code'),
-                'rep_user_id' => Util::rule(false, 'primary')
+                'meeting_id' => Util::rule('Meeting', true, 'primary'),
+                'status_code' => Util::rule('Meeting', true, 'meeting.join_code'),
+                'rep_user_id' => Util::rule('Meeting', false, 'primary')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -1046,8 +1046,8 @@ class AgendaController extends Controller
 
             // @0 Validating
             $validator = Validator::make([...$this->req->all(), 'out_ref_code' => $reference], [
-                'out_ref_code' => Util::rule(true, 'meeting.reference'),
-                'status_code' => Util::rule(true, 'meeting.join_code')
+                'out_ref_code' => Util::rule('Meeting', true, 'meeting.reference'),
+                'status_code' => Util::rule('Meeting', true, 'meeting.join_code')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());

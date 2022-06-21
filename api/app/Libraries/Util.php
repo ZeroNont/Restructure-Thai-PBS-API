@@ -2,6 +2,8 @@
 
 namespace App\Libraries;
 
+use Adbar\Dot;
+
 class Util
 {
 
@@ -57,14 +59,18 @@ class Util
         return $value;
     }
 
-    public static function rule(bool $must, string $path): string
+    public static function rule(string $module, bool $must, string $path): string
     {
-        $data = ($must) ? 'required' : 'nullable';
-        $temp = config('rule.' . $path);
+
+		$rule = include __DIR__.'/../Modules/'.$module.'/Rule.php';
+		$dot = new Dot;
+		$dot->set($rule);
+		$data = ($must) ? 'required' : 'nullable';
+        $temp = $dot->get($path);
         if (is_null($temp)) {
             return null; // Force
         }
-        return $data . '|' . $temp;
+        return $data.'|'.$temp;
     }
 
     public static function genStr(string $type): string

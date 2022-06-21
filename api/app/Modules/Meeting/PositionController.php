@@ -29,8 +29,8 @@ class PositionController extends Controller
 
             // @0 Validating
             $validator = Validator::make($this->req->all(), [
-                'meeting_id' => Util::rule(true, 'primary'),
-                'name' => Util::rule(true, 'text.title')
+                'meeting_id' => Util::rule('Meeting', true, 'primary'),
+                'name' => Util::rule('Meeting', true, 'text.title')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -77,7 +77,7 @@ class PositionController extends Controller
 
             // @0 Validating
             $validator = Validator::make(['meeting_id' => $id], [
-                'meeting_id' => Util::rule(true, 'primary')
+                'meeting_id' => Util::rule('Meeting', true, 'primary')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -115,9 +115,9 @@ class PositionController extends Controller
 
             $this->clean(['name']);
             $validator = Validator::make([...$this->req->all(), 'pos_id' => $id], [
-                'pos_id' => Util::rule(true, 'primary'),
-                'name' => Util::rule(true, 'text.title'),
-                'order_no' => Util::rule(true, 'number.no')
+                'pos_id' => Util::rule('Meeting', true, 'primary'),
+                'name' => Util::rule('Meeting', true, 'text.title'),
+                'order_no' => Util::rule('Meeting', true, 'number.no')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
@@ -154,7 +154,7 @@ class PositionController extends Controller
         try {
 
             $validator = Validator::make(['pos_id' => $id], [
-                'pos_id' => Util::rule(true, 'primary')
+                'pos_id' => Util::rule('Meeting', true, 'primary')
             ]);
             if ($validator->fails()) {
                 $res->set('INPUT', $validator->errors());
